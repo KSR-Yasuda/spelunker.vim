@@ -129,7 +129,11 @@ function! spelunker#words#replace_word(target_word, replace_word, is_correct_all
 		endif
 	else
 		let l:right_move = strlen(a:target_word) - 1
+		let l:wrapscan = &wrapscan
+		let &wrapscan = v:true
 		execute "silent! normal! /" . a:target_word . "\<CR>Nv" . l:right_move . "lc" . a:replace_word
+		let &wrapscan = l:wrapscan
+		unlet! l:wrapscan
 	endif
 
 	call setpos('.', l:pos)
